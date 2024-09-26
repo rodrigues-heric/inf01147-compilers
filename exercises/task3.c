@@ -12,36 +12,26 @@ void main()
 
     while ((readed = fgetc(in2)) != EOF)
     {
-        switch (readed)
+        if (readed == ';')
         {
-        case ';':
             printf("%d ", countNumbers);
             countNumbers = 0;
-            break;
-
-        case ' ':
-        case '\t':
-        case '\n':
-            if (readed == '\n')
+        }
+        else if (readed == ' ' || readed == '\t' || readed == '\n')
+        {
+            countLines += (readed == '\n');
+            if (!isAfterSpace)
             {
-                countLines++;
+                isAfterSpace = 1;
             }
-
-            if (isAfterSpace)
-            {
-                continue;
-            }
-
-            isAfterSpace = 1;
-            break;
-
-        default:
+        }
+        else
+        {
             if (isAfterSpace)
             {
                 countNumbers++;
             }
             isAfterSpace = 0;
-            break;
         }
     }
 
